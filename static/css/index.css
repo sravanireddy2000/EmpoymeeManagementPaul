@@ -1,9 +1,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
     height: 100vh;
     margin: 0;
 }
@@ -15,6 +13,9 @@ body {
     border-radius: 5px;
     width: 300px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 h2 {
@@ -56,4 +57,32 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+.addemployeebtn
+{
+    background-color: #007bff;
+    width: 150px;
+}
+.logoutbtn
+{
+    background-color: transparent;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 100px;
+    color: black;
+}
+header{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+header nav
+{
+    width: 90%;  
+}
+header nav div
+{
+
 }
