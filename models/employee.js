@@ -25,4 +25,4 @@ const schema=mongoose.Schema({
 
 const employeeModel=mongoose.model('employee_collection',schema);
 
-module.exports=employeeModel
+module.exports=employeeModel;
