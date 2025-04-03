@@ -88,6 +88,12 @@ main{
     align-items: center;
     width: 100%;
 }
+section
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 table
 {
     width: 90%;
