@@ -22,7 +22,16 @@
             const data=new FormData(e.target);
             const obj=Object.fromEntries(data.entries());
             const response=await fetch('/login',{headers:{'Content-Type':'application/json'},method:'Post',body:JSON.stringify(obj)});
-            console.log(response,'res');
+           
+            if(response.ok)
+            {
+                const data=await response.json();
+                alert(data.message);
+                window.location.href="/homepage"
+                return;
+            }
+            const error=await response.json();
+            alert(error.message);
         }
     </script>
 </body>
