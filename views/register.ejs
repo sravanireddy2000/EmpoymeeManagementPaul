@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <h2>Register</h2>
-        <form action="/register" method="POST">
+        <form action="/register" method="POST" id="register">
             <input type="text" name="name" placeholder="Name" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
@@ -17,5 +17,14 @@
         </form>
         <p>Already have an account? <a href="/login">Login</a></p>
     </div>
+    <script>
+        document.getElementById('register').onsubmit=async(e)=>{
+            e.preventDefault();
+            const data=new FormData(e.target);
+            const obj=Object.fromEntries(data.entries());
+            const response=await fetch('/register',{headers:{'Content-Type':'application/json'},method:'Post',body:JSON.stringify(obj)});
+            console.log(response,'res');
+        }
+    </script>
 </body>
 </html>
