@@ -167,7 +167,8 @@ table tbody tr td
     height: 40px;
     position: absolute;
     top: -20px;
-    right: -5px;
+    right: -30px;
     color: black;
     margin: 0px;
+    cursor: pointer;
 }

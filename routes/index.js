@@ -1,6 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const registerModel=require('../models/register.js');
+const employeeModel=require('../models/employee.js');
 
 router.get('/',(req,res)=>{
    res.render('login.ejs')
@@ -48,16 +49,23 @@ router.post('/register',async (req,res)=>{
 router.post('/addemployee',async (req,res)=>{
   const body=req.body;
   console.log(body);
-//  try{
-//   const update=await registerModel.create({name:body.name,email:body.email,password:body.password})
-//   if(!update)
-//       return res.status(400).json({success:false,message:'Unable to register'});
-//   return res.status(201).json({success:true,message:'Registered successfully'})
-//  }
-//  catch(err)
-//  {   
-//    return res.status(500).json({success:false,message:'Network error'});
-//  }
+  try{
+    const update=await employeeModel.create({
+      firstname:body.fname,
+      lastname:body.lname,
+      email:body.email,
+      salary:body.salary,
+      date:body.date
+    });
+
+    if(!update)
+        return res.status(400).json({success:false,message:'Unable to Add'});
+    return res.status(201).json({success:true,message:'Employee Added successfully'})
+  }
+  catch(err)
+  {   
+    return res.status(500).json({success:false,message:'Network error'});
+  }
 })
 
 module.exports=router;
