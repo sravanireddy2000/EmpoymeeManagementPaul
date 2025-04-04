@@ -46,9 +46,27 @@ router.post('/register',async (req,res)=>{
      return res.status(500).json({success:false,message:'Network error'});
    }
 })
+
+router.get('/fetchemployees',async (req,res)=>{
+  try{
+    const update=await employeeModel.find({});
+
+    if(!update || update.length===0)
+        return res.status(400).json({success:false,message:'list is empty'});
+
+    return res.status(201).json({success:true,message:'Fetched employees successfully',data:update})
+  }
+  catch(err)
+  {   
+    return res.status(500).json({success:false,message:'Network error'});
+  }
+});
+
 router.post('/addemployee',async (req,res)=>{
   const body=req.body;
-  console.log(body);
+  
+  if(!body.fname || !body.lname || !body.email || !body.salary ||  !body.date )
+    return res.status(400).json({success:false,message:'Complete all the fields'});
   try{
     const update=await employeeModel.create({
       firstname:body.fname,
