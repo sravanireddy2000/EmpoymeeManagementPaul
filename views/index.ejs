@@ -60,7 +60,19 @@
         </div>
     </main>
     <script>
-       
+          document.querySelector('.addemployeebtn').addEventListener('click',()=>{
+           const employeesection= document.querySelector('.employeesection');
+           employeesection.style.display = "block";
+        })
+        document.querySelector('.close').addEventListener('click',()=>{
+           const employeesection= document.querySelector('.employeesection');
+           employeesection.style.display = "none";
+        })
+        document.getElementById('form').onsubmit=(e)=>{
+           const form=new FormData(e.target);
+           const obj=Object.fromEntries(form.entries());
+           console.log('obj',obj);
+        }
     </script>
 </body>
 </html>
