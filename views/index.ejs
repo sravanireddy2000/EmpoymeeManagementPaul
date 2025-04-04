@@ -37,22 +37,7 @@
                 <td colspan="2">Actions</td>
               </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>No.</td>
-                    <td>First Name</td>
-                    <td>Last Name</td>
-                    <td>Email</td>
-                    <td>Salary</td>
-                    <td>Date</td>
-                    <td>
-                        <button class="edit">Edit</button>
-                      
-                    </td>
-                    <td>
-                        <button class="delete">Delete</button>
-                    </td>
-                  </tr>
+            <tbody class="tablebody">
             </tbody>
         </table>
         <div class="employeesection" style="display: none;">
@@ -93,7 +78,54 @@
              console.log(error);
            }
         }
-        
+        const fetchEmployees=async ()=>{
+            try{
+            const response=await fetch('/fetchemployees')
+                if(response.ok)
+            {
+                const data=await response.json();
+                alert(data.message);
+
+               const tbody= document.querySelector('.tablebody');
+               data?.data?.map((e,index)=>{
+                const tr= document.createElement('tr');
+                const id= document.createElement('th');
+                const fname= document.createElement('td');
+                const lname= document.createElement('td');
+                const email= document.createElement('td');
+                const salary= document.createElement('td');
+                const date= document.createElement('td');
+                const actions= document.createElement('td');
+                const edit= document.createElement('button');
+                const deleteBtn= document.createElement('button');
+
+                id.innerText=index+1;
+                fname.innerText=e.firstname;
+                lname.innerText=e.lastname;
+                email.innerText=e.email;
+                salary.innerText=e.salary;
+                date.innerText=e.date;
+
+                edit.classList.add('edit');
+                deleteBtn.classList.add('delete');
+                edit.innerText="Edit";
+                deleteBtn.innerText="Delete";
+                actions.append(edit,deleteBtn)
+                tr.append(id,fname,lname,email,salary,date,actions)
+                tbody.append(tr);
+               })
+            
+                return;
+            }
+            const error=await response.json()
+            alert(error.message);
+           }
+           catch(error)
+           {
+             console.log(error);
+           }
+        }
+        fetchEmployees();
     </script>
 </body>
 </html>
