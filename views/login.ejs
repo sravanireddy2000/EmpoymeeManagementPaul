@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="container">
+        <section>
         <h2>Login</h2>
         <form action="/login" method="POST" id="login">
             <input type="email" name="email" placeholder="Email" required>
@@ -15,6 +16,7 @@
             <button type="submit">Login</button>
         </form>
         <p>Don't have an account? <a href="/register">Register</a></p>
+    </section>
     </div> 
     <script>
         document.getElementById('login').onsubmit=async(e)=>{
