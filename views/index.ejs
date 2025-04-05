@@ -84,7 +84,9 @@
                 if(response.ok)
             {
                 const data=await response.json();
-                alert(data.message);
+
+                console.log(data);
+                // alert(data.message);
 
                const tbody= document.querySelector('.tablebody');
                data?.data?.map((e,index)=>{
@@ -109,6 +111,10 @@
                 edit.classList.add('edit');
                 deleteBtn.classList.add('delete');
                 edit.innerText="Edit";
+                edit.onclick=(value)=>{
+                    value.preventDefault();
+                     load(e._id);
+                   };
                 deleteBtn.innerText="Delete";
                 actions.append(edit,deleteBtn)
                 tr.append(id,fname,lname,email,salary,date,actions)
@@ -124,6 +130,10 @@
            {
              console.log(error);
            }
+        }
+
+        const load=(id)=>{
+            console.log('load',id);
         }
         fetchEmployees();
     </script>
