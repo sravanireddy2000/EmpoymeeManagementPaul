@@ -86,4 +86,32 @@ router.post('/addemployee',async (req,res)=>{
   }
 })
 
+router.post('/updateemployee',async (req,res)=>{
+  const body=req.body;
+  const {id}=req.query;
+  console.log(id);
+  if(!body.fname || !body.lname || !body.email || !body.salary ||  !body.date )
+    return res.status(400).json({success:false,message:'Complete all the fields'});
+  try{
+    const exist=await employeeModel.findOne({_id:id});
+    if(!exist)
+      return res.status(400).json({success:false,message:'User does not exist!'});
+
+      exist.firstname=body.fname,
+      exist.lastname=body.lname,
+      exist.email=body.email,
+      exist.salary=body.salary,
+      exist.date=body.date
+      
+      await exist.save();
+      
+    return res.status(201).json({success:true,message:'Employee Updated successfully'})
+  }
+  catch(err)
+  {   
+    return res.status(500).json({success:false,message:'Network error'});
+  }
+})
+
+
 module.exports=router;

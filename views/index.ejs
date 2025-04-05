@@ -59,7 +59,7 @@
 
         let isEdit=false;
 
-        function HandleForms(){
+        function HandleForms(id){
             console.log('edit',isEdit);
             if(isEdit===false)
              {
@@ -94,9 +94,8 @@
             e.preventDefault();
            const form=new FormData(e.target);
            const obj=Object.fromEntries(form.entries());
-           console.log('obj1',obj);
            try{
-            const response=await fetch('/updateemployee',{headers:{'Content-Type':'application/json'},method:'POST',
+            const response=await fetch(`/updateemployee?id=${id}`,{headers:{'Content-Type':'application/json'},method:'POST',
             body:JSON.stringify(obj)})
                 if(response.ok)
             {
@@ -104,6 +103,7 @@
                 document.getElementById('form').reset();
                 alert(data.message);
                 document.querySelector('.employeesection').style.display="none";
+                window.location.reload();
                 return;
             }
             const error=await response.json()
@@ -156,7 +156,7 @@
                     isEdit=true;
                     document.querySelector('.employeesection').style.display = "block";
                     console.log(isEdit,'edit');
-                    HandleForms();
+                    HandleForms(e._id);
                    };
                 deleteBtn.innerText="Delete";
                 actions.append(edit,deleteBtn)
