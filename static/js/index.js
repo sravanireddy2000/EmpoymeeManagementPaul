@@ -29,7 +29,9 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
          const data=await response.json();
          document.getElementById('form').reset();
          alert(data.message);
+       
          document.querySelector('.employeesection').style.display="none";
+         window.location.reload();
          return;
      }
      const error=await response.json()
