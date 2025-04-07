@@ -151,5 +151,25 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
          console.log(error);
        }
  }
+
+function SearchFunctionality(){
+      const search=document.getElementById('search');
+      const searchBtn=document.getElementById('searchbtn');
+      let value=search.value;
+
+      search.onclick=async (e)=>{
+        try{
+           const response=await fetch(`/search?id=${value}`);
+           const data=await response.json();
+
+           console.log(data);
+        }
+        catch(error)
+        {
+
+        }
+      }
+}
  fetchEmployees();
+ SearchFunctionality();
  
