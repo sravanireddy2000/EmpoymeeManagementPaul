@@ -135,24 +135,21 @@ const deleteEmployee=async (req,res)=>{
 
 const searchFunctionality=async (req,res)=>{
   const value=req.params.id;
+
+  console.log(value);
   try{
-    const exist=await employeeModel.findOne({
+    const exist=await employeeModel.find({
       $or: [
         { firstname: { $regex: value, $options: 'i' } },
         { lastname: { $regex: value, $options: 'i' } },
         { email: { $regex: value, $options: 'i' } },
-        { salary: { $regex: value, $options: 'i' } },
-        {
-          date: {
-            $regex: value,
-            $options: 'i'
-          }
-        } 
+        { salary: { $regex: value, $options: 'i' } }
       ]
   });
-  
+  console.log(exist)
    if(!exist)
       return res.status(400).json({success:false,message:'No results found'});
+
     return res.status(200).json({success:true,message:' results found',data:exist});
   }
   catch(err)

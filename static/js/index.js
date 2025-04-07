@@ -162,8 +162,54 @@ function SearchFunctionality(){
         try{
            const response=await fetch(`/search/${value}`);
            const data=await response.json();
+           if(data.success)
+           {
+            const tbody= document.querySelector('.tablebody');
+            tbody.innerHTML="";
+            data?.data?.map((e,index)=>{
+             const tr= document.createElement('tr');
+             const id= document.createElement('th');
+             const fname= document.createElement('td');
+             const lname= document.createElement('td');
+             const email= document.createElement('td');
+             const salary= document.createElement('td');
+             const date= document.createElement('td');
+             const actions= document.createElement('td');
+             const edit= document.createElement('button');
+             const deleteBtn= document.createElement('button');
+    
+             id.innerText=index+1;
+             fname.innerText=e.firstname;
+             lname.innerText=e.lastname;
+             email.innerText=e.email;
+             salary.innerText=e.salary;
+             date.innerText=e.date;
+    
+             edit.classList.add('edit');
+             deleteBtn.classList.add('delete');
+             edit.innerText="Edit";
+             edit.onclick=(value)=>{
+                 value.preventDefault();
+                 isEdit=true;
+                 document.querySelector('.employeesection').style.display = "block";
+                 console.log(isEdit,'edit');
+                 HandleForms(e._id);
+                };
+             deleteBtn.innerText="Delete";
+             deleteBtn.onclick=(value)=>{
+                value.preventDefault();
+                DeleteEmployee(e._id);
+               };
+             actions.append(edit,deleteBtn)
+             tr.append(id,fname,lname,email,salary,date,actions)
+             tbody.append(tr);
+            })
 
-           console.log(data);
+            return;
+           }
+          
+        
+           console.log(data.message);
         }
         catch(error)
         {
