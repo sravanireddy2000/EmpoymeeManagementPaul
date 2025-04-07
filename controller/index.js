@@ -109,6 +109,26 @@ const updateEmployee=async (req,res)=>{
   }
 }
 
+const deleteEmployee=async (req,res)=>{
+  const {id}=req.body;
+  console.log('d',id)
+  if(!id )
+    return res.status(400).json({success:false,message:'Id required!'});
+
+  try{
+    const exist=await employeeModel.findOne({_id:id});
+    if(!exist)
+      return res.status(400).json({success:false,message:'User does not exist!'});
+
+      await exist.deleteOne()
+    return res.status(201).json({success:true,message:'Employee Delete successfully'})
+  }
+  catch(err)
+  {   
+    return res.status(500).json({success:false,message:'Network error'});
+  }
+};
+
  module.exports={
   login,
   loginPageRender,
@@ -117,5 +137,6 @@ const updateEmployee=async (req,res)=>{
   register,
   fetchEmployees,
   getEmployees,
-  updateEmployee
+  updateEmployee,
+  deleteEmployee
 };
