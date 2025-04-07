@@ -2,71 +2,26 @@ const express=require('express');
 const router=express.Router();
 const registerModel=require('../models/register.js');
 const employeeModel=require('../models/employee.js');
-const { login, loginPageRender, homePageRender } = require('../controller/index.js');
+const { login,
+        loginPageRender, 
+        homePageRender,
+        registerPageRender, 
+        register,
+        fetchEmployees, 
+        getEmployees} = require('../controller/index.js');
 
-router.get('/',loginpage);
+router.get('/',login);
 router.post('/login',loginPageRender);
 
 router.get('/homepage',homePageRender);
  
+router.get('/register',registerPageRender)
+      .post('/register',register);
 
 
-router.get('/register',(req,res)=>{
-    res.render('register.ejs')
-});
+router.get('/fetchemployees',fetchEmployees);
 
-router.post('/register',async (req,res)=>{
-    const body=req.body;
-   try{
-    const update=await registerModel.create({name:body.name,email:body.email,password:body.password})
-    if(!update)
-        return res.status(400).json({success:false,message:'Unable to register'});
-    return res.status(201).json({success:true,message:'Registered successfully'})
-   }
-   catch(err)
-   {   
-     return res.status(500).json({success:false,message:'Network error'});
-   }
-})
-
-router.get('/fetchemployees',async (req,res)=>{
-  try{
-    const update=await employeeModel.find({});
-
-    if(!update || update.length===0)
-        return res.status(400).json({success:false,message:'list is empty'});
-
-    return res.status(201).json({success:true,message:'Fetched employees successfully',data:update})
-  }
-  catch(err)
-  {   
-    return res.status(500).json({success:false,message:'Network error'});
-  }
-});
-
-router.post('/addemployee',async (req,res)=>{
-  const body=req.body;
-  
-  if(!body.fname || !body.lname || !body.email || !body.salary ||  !body.date )
-    return res.status(400).json({success:false,message:'Complete all the fields'});
-  try{
-    const update=await employeeModel.create({
-      firstname:body.fname,
-      lastname:body.lname,
-      email:body.email,
-      salary:body.salary,
-      date:body.date
-    });
-
-    if(!update)
-        return res.status(400).json({success:false,message:'Unable to Add'});
-    return res.status(201).json({success:true,message:'Employee Added successfully'})
-  }
-  catch(err)
-  {   
-    return res.status(500).json({success:false,message:'Network error'});
-  }
-})
+router.post('/addemployee',getEmployees);
 
 router.put('/updateemployee',async (req,res)=>{
   const body=req.body;

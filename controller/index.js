@@ -42,4 +42,80 @@ const register=async (req,res)=>{
      return res.status(500).json({success:false,message:'Network error'});
    }
 }
- module.exports={login,loginPageRender,homePageRender,registerPageRender,register};
+
+const fetchEmployees=async (req,res)=>{
+  try{
+    const update=await employeeModel.find({});
+
+    if(!update || update.length===0)
+        return res.status(400).json({success:false,message:'list is empty'});
+
+    return res.status(201).json({success:true,message:'Fetched employees successfully',data:update})
+  }
+  catch(err)
+  {   
+    return res.status(500).json({success:false,message:'Network error'});
+  }
+}
+
+const getEmployees=async (req,res)=>{
+  const body=req.body;
+  
+  if(!body.fname || !body.lname || !body.email || !body.salary ||  !body.date )
+    return res.status(400).json({success:false,message:'Complete all the fields'});
+  try{
+    const update=await employeeModel.create({
+      firstname:body.fname,
+      lastname:body.lname,
+      email:body.email,
+      salary:body.salary,
+      date:body.date
+    });
+
+    if(!update)
+        return res.status(400).json({success:false,message:'Unable to Add'});
+    return res.status(201).json({success:true,message:'Employee Added successfully'})
+  }
+  catch(err)
+  {   
+    return res.status(500).json({success:false,message:'Network error'});
+  }
+};
+
+const updateEmployee=async (req,res)=>{
+  const body=req.body;
+  const {id}=req.query;
+  console.log(id);
+  if(!body.fname || !body.lname || !body.email || !body.salary ||  !body.date )
+    return res.status(400).json({success:false,message:'Complete all the fields'});
+  try{
+    const exist=await employeeModel.findOne({_id:id});
+    if(!exist)
+      return res.status(400).json({success:false,message:'User does not exist!'});
+
+      exist.firstname=body.fname,
+      exist.lastname=body.lname,
+      exist.email=body.email,
+      exist.salary=body.salary,
+      exist.date=body.date
+      
+      await exist.save();
+
+    return res.status(201).json({success:true,message:'Employee Updated successfully'})
+  }
+  catch(err)
+  {   
+    return res.status(500).json({success:false,message:'Network error'});
+  }
+}
+
+ module.exports={
+  login,
+  loginPageRender,
+  homePageRender,
+  registerPageRender,
+  register,
+  fetchEmployees,
+  getEmployees,
+  updateEmployee
+};
