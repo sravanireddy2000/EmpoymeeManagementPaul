@@ -13,6 +13,7 @@ const { login,
         deleteEmployee} = require('../controller/index.js');
 
 router.get('/',login);
+
 router.post('/login',loginPageRender);
 
 router.get('/homepage',homePageRender);

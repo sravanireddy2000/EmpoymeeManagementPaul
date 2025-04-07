@@ -1,3 +1,6 @@
+const registerModel=require('../models/register.js');
+const employeeModel=require('../models/employee.js');
+
 const login=async (req,res)=>{
      const body=req.body;
      try{
@@ -46,7 +49,8 @@ const register=async (req,res)=>{
 const fetchEmployees=async (req,res)=>{
   try{
     const update=await employeeModel.find({});
-
+     
+    console.log(update,'update')
     if(!update || update.length===0)
         return res.status(400).json({success:false,message:'list is empty'});
 

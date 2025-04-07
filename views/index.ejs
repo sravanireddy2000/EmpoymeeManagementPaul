@@ -1,29 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Management App</title>
-    <link href="/css/index.css" rel="stylesheet"/>
-
-</head>
-<body>
-    <header>
-    <nav>
-        <h2>Employee Management Application</h2>
-        <section> 
-            <div>
-            <button class="addemployeebtn">Add Employee</button>
-            <button class="logoutbtn">Logout</button>
-        </div>
-            <div>
-                <input type="text" name="search" placeholder="Search...">
-                <button class="logoutbtn">Search</button>
-            </div>
-        </section>
-
-    </nav>
-    </header>
+ <%- include('components/header.ejs') %>
     <main>
         <table>
             <thead>
@@ -44,8 +19,6 @@
             <%- include('components/addemployee.ejs') %>
         </div>
     </main>
-    <script src="/js/index.js">
-
-    </script>
+    <script src="/js/index.js"></script>
 </body>
 </html>
