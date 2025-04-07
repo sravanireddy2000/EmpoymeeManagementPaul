@@ -1,7 +1,6 @@
 const express=require('express');
 const router=express.Router();
-const registerModel=require('../models/register.js');
-const employeeModel=require('../models/employee.js');
+
 const { login,
         loginPageRender, 
         homePageRender,
@@ -10,7 +9,8 @@ const { login,
         fetchEmployees, 
         getEmployees,
         updateEmployee,
-        deleteEmployee} = require('../controller/index.js');
+        deleteEmployee,
+        searchFunctionality} = require('../controller/index.js');
 
 router.get('/',login);
 
@@ -29,5 +29,9 @@ router.post('/addemployee',getEmployees);
 router.put('/updateemployee',updateEmployee)
 
 router.delete('/deleteemployee',deleteEmployee)
+
+
+
+router.get('/search/:id',searchFunctionality);
 
 module.exports=router;

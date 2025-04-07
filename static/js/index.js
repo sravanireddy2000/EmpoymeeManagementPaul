@@ -155,18 +155,19 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
 function SearchFunctionality(){
       const search=document.getElementById('search');
       const searchBtn=document.getElementById('searchbtn');
-      let value=search.value;
-
-      search.onclick=async (e)=>{
+      
+      searchBtn.onclick=async (e)=>{
+        let value=search.value;
+      
         try{
-           const response=await fetch(`/search?id=${value}`);
+           const response=await fetch(`/search/${value}`);
            const data=await response.json();
 
            console.log(data);
         }
         catch(error)
         {
-
+            console.log(error);
         }
       }
 }

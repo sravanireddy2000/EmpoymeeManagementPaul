@@ -50,7 +50,7 @@ const fetchEmployees=async (req,res)=>{
   try{
     const update=await employeeModel.find({});
      
-    console.log(update,'update')
+    // console.log(update,'update')
     if(!update || update.length===0)
         return res.status(400).json({success:false,message:'list is empty'});
 
@@ -133,6 +133,33 @@ const deleteEmployee=async (req,res)=>{
   }
 };
 
+const searchFunctionality=async (req,res)=>{
+  const value=req.params.id;
+  try{
+    const exist=await employeeModel.findOne({
+      $or: [
+        { firstname: { $regex: value, $options: 'i' } },
+        { lastname: { $regex: value, $options: 'i' } },
+        { email: { $regex: value, $options: 'i' } },
+        { salary: { $regex: value, $options: 'i' } },
+        {
+          date: {
+            $regex: value,
+            $options: 'i'
+          }
+        } 
+      ]
+  });
+  
+   if(!exist)
+      return res.status(400).json({success:false,message:'No results found'});
+    return res.status(200).json({success:true,message:' results found',data:exist});
+  }
+  catch(err)
+  {
+    return res.status(500).json({success:false,message:'Network error'});
+  }
+}
  module.exports={
   login,
   loginPageRender,
@@ -142,5 +169,6 @@ const deleteEmployee=async (req,res)=>{
   fetchEmployees,
   getEmployees,
   updateEmployee,
-  deleteEmployee
+  deleteEmployee,
+  searchFunctionality
 };
