@@ -72,7 +72,7 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
   }
  }
 
- 
+ let employees={};
  const fetchEmployees=async ()=>{
      try{
      const response=await fetch('/fetchemployees')
@@ -81,47 +81,13 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
          const data=await response.json();
 
          console.log(data);
-         // alert(data.message);
 
-        const tbody= document.querySelector('.tablebody');
-        data?.data?.map((e,index)=>{
-         const tr= document.createElement('tr');
-         const id= document.createElement('th');
-         const fname= document.createElement('td');
-         const lname= document.createElement('td');
-         const email= document.createElement('td');
-         const salary= document.createElement('td');
-         const date= document.createElement('td');
-         const actions= document.createElement('td');
-         const edit= document.createElement('button');
-         const deleteBtn= document.createElement('button');
-
-         id.innerText=index+1;
-         fname.innerText=e.firstname;
-         lname.innerText=e.lastname;
-         email.innerText=e.email;
-         salary.innerText=e.salary;
-         date.innerText=e.date;
-
-         edit.classList.add('edit');
-         deleteBtn.classList.add('delete');
-         edit.innerText="Edit";
-         edit.onclick=(value)=>{
-             value.preventDefault();
-             isEdit=true;
-             document.querySelector('.employeesection').style.display = "block";
-             console.log(isEdit,'edit');
-             HandleForms(e._id);
-            };
-         deleteBtn.innerText="Delete";
-         deleteBtn.onclick=(value)=>{
-            value.preventDefault();
-            DeleteEmployee(e._id);
-           };
-         actions.append(edit,deleteBtn)
-         tr.append(id,fname,lname,email,salary,date,actions)
-         tbody.append(tr);
-        })
+        employees=data?.data;
+        if(employees)
+          {
+            SetEmployees();
+          }
+      
      
          return;
      }
@@ -134,6 +100,52 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
     }
  }
 
+ function SetEmployees(){
+  console.log('employees',employees);
+  const tbody= document.querySelector('.tablebody');
+
+  employees.map((e,index)=>{
+  const tr= document.createElement('tr');
+  const id= document.createElement('th');
+  const fname= document.createElement('td');
+  const lname= document.createElement('td');
+  const email= document.createElement('td');
+  const salary= document.createElement('td');
+  const date= document.createElement('td');
+  const actions= document.createElement('td');
+  const edit= document.createElement('button');
+  const deleteBtn= document.createElement('button');
+
+  id.innerText=index+1;
+
+  fname.innerText=e.firstname;
+  lname.innerText=e.lastname;
+  email.innerText=e.email;
+  salary.innerText=e.salary;
+  date.innerText=e.date;
+
+  edit.classList.add('edit');
+  deleteBtn.classList.add('delete');
+  edit.innerText="Edit";
+  edit.onclick=(value)=>{
+      value.preventDefault();
+      isEdit=true;
+      document.querySelector('.employeesection').style.display = "block";
+      console.log(isEdit,'edit');
+      HandleForms(e._id);
+     };
+  deleteBtn.innerText="Delete";
+  deleteBtn.onclick=(value)=>{
+     value.preventDefault();
+     DeleteEmployee(e._id);
+    };
+  actions.append(edit,deleteBtn)
+  tr.append(id,fname,lname,email,salary,date,actions)
+  tbody.append(tr);
+})
+ }
+
+ const firstNameClick=document.getElementById('first');
  const DeleteEmployee=async (id)=>{
     try{
         const response=await fetch(`/deleteemployee`,{headers:{'Content-Type':'application/json'},method:'DELETE',

@@ -12,9 +12,9 @@ const { login,
         deleteEmployee,
         searchFunctionality} = require('../controller/index.js');
 
-router.get('/',login);
+router.get('/',loginPageRender);
 
-router.post('/login',loginPageRender);
+router.post('/login',login);
 
 router.get('/homepage',homePageRender);
  
