@@ -103,7 +103,7 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
  function SetEmployees(){
   console.log('employees',employees);
   const tbody= document.querySelector('.tablebody');
-
+  tbody.innerHTML='';
   employees.map((e,index)=>{
   const tr= document.createElement('tr');
   const id= document.createElement('th');
@@ -151,6 +151,27 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
  const salary=document.getElementById('salary');
  const date=document.getElementById('date');
 
+
+ firstNameClick.onclick=(e)=>{
+  employees.sort((a, b) => a.firstname.localeCompare(b.firstname));
+  SetEmployees();
+ }
+ lastName.onclick=(e)=>{
+  employees.sort((a, b) => a.lastname.localeCompare(b.lastname));
+  SetEmployees();
+ }
+ email.onclick=(e)=>{
+  employees.sort((a, b) => a.email.localeCompare(b.email));
+  SetEmployees();
+ }
+ salary.onclick=(e)=>{
+  employees.sort((a, b) => {
+    let avalue=parseInt(a.salary) || 0;
+    let bValue=parseInt(b.salary) || 0;
+    return bValue-avalue;
+  });
+  SetEmployees();
+ }
  const DeleteEmployee=async (id)=>{
     try{
         const response=await fetch(`/deleteemployee`,{headers:{'Content-Type':'application/json'},method:'DELETE',
