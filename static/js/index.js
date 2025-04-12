@@ -145,7 +145,12 @@ document.querySelector('.addemployeebtn').addEventListener('click',()=>{
 })
  }
 
- const firstNameClick=document.getElementById('first');
+ const firstNameClick=document.getElementById('firstname');
+ const lastName=document.getElementById('lastname');
+ const email=document.getElementById('email');
+ const salary=document.getElementById('salary');
+ const date=document.getElementById('date');
+
  const DeleteEmployee=async (id)=>{
     try{
         const response=await fetch(`/deleteemployee`,{headers:{'Content-Type':'application/json'},method:'DELETE',
