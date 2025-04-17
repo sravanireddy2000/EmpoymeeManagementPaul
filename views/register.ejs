@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="container">
+        <section>
         <h2>Register</h2>
         <form action="/register" method="POST" id="register">
             <input type="text" name="name" placeholder="Name" required>
@@ -16,6 +17,7 @@
             <button type="submit">Register</button>
         </form>
         <p>Already have an account? <a href="/">Login</a></p>
+    </section>
     </div>
     <script>
         document.getElementById('register').onsubmit=async(e)=>{
@@ -23,7 +25,8 @@
             const data=new FormData(e.target);
             const obj=Object.fromEntries(data.entries());
             const response=await fetch('/register',{headers:{'Content-Type':'application/json'},method:'Post',body:JSON.stringify(obj)});
-            console.log(response,'res');
+            const res=await response.json();
+            alert(res.message);
         }
     </script>
 </body>

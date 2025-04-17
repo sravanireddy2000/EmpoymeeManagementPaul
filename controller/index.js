@@ -50,7 +50,6 @@ const fetchEmployees=async (req,res)=>{
   try{
     const update=await employeeModel.find({});
      
-    // console.log(update,'update')
     if(!update || update.length===0)
         return res.status(400).json({success:false,message:'list is empty'});
 

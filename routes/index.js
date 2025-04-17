@@ -30,8 +30,6 @@ router.put('/updateemployee',updateEmployee)
 
 router.delete('/deleteemployee',deleteEmployee)
 
-
-
 router.get('/search/:id',searchFunctionality);
 
 module.exports=router;
